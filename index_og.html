@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .body{
+            margin:0;
+            padding:0;
+        }
+        .content{
+            display:flex;
+            flex-direction: column;
+            
+        }
+        .rows{
+            display: flex;
+            flex-direction: row;
+        }
+        .tiles{
+            
+            height: 60px;
+            width: 60px;
+            border: 1px solid black;
+        }
+        .tiles.beige{
+            background-color: beige;
+        }
+        .tiles.brown{
+            background-color: rgb(146, 72, 72);
+        }
+        .figure{
+
+        }
+        .zeleno{
+           
+            border:1px solid rgb(51, 255, 0);
+            background-color: aqua;
+        }
+    </style>
+</head>
+<body>
+    <div class="content">
+        <div class="rows">
+            <div class="tiles brown" data-row="1" data-column="1">
+                <div draggable="true"class="draggable figure crni top"><img src="slike/black_rook.png" alt=""></div>
+            </div>
+            <div class="tiles beige" data-row="1" data-column="2">
+                <div draggable="true"class="draggable figure crni konj"><img src="slike/black_horse.png" alt=""></div>
+            </div>
+            <div class="tiles brown" data-row="1" data-column="3">
+                <div draggable="true"class="draggable figure crni lovac"><img src="slike/black_bishop.png" alt=""></div>
+            </div>
+            <div class="tiles beige" data-row="1" data-column="4">
+                <div draggable="true"class="draggable figure crni kraljica"><img src="slike/black_queen.png" alt=""></div>
+            </div>
+            <div class="tiles brown" data-row="1" data-column="5">
+                <div draggable="true"class="draggable figure crni kralj"><img src="slike/black_king.png" alt=""></div>
+            </div>
+            <div class="tiles beige" data-row="1" data-column="6">
+                <div draggable="true"class="draggable figure crni lovac"><img src="slike/black_bishop.png" alt=""></div>
+            </div>
+            <div class="tiles brown" data-row="1" data-column="7">
+                <div draggable="true"class="draggable figure crni konj"><img src="slike/black_horse.png" alt=""></div>
+            </div>
+            <div class="tiles beige" data-row="1" data-column="8">
+                <div draggable="true"class="draggable figure crni top"><img src="slike/black_rook.png" alt=""></div>
+            </div>
+        </div>
+        <div class="rows">
+            <div class="tiles beige" data-row="2" data-column="1">
+                <div draggable="true"class="draggable figure crni pijun"><img src="slike/black_pawn.png" alt=""></div>
+            </div>
+            <div class="tiles brown" data-row="2" data-column="2">
+                <div draggable="true"class="draggable figure crni pijun"><img src="slike/black_pawn.png" alt=""></div>
+            </div>
+            <div class="tiles beige" data-row="2" data-column="3">
+                <div draggable="true"class="draggable figure crni pijun"><img src="slike/black_pawn.png" alt=""></div>
+            </div>
+            <div class="tiles brown" data-row="2" data-column="4">
+                <div draggable="true"class="draggable figure crni pijun"><img src="slike/black_pawn.png" alt=""></div>
+            </div>
+            <div class="tiles beige" data-row="2" data-column="5">
+                <div draggable="true"class="draggable figure crni pijun"><img src="slike/black_pawn.png" alt=""></div>
+            </div>
+            <div class="tiles brown" data-row="2" data-column="6">
+                <div draggable="true"class="draggable figure crni pijun"><img src="slike/black_pawn.png" alt=""></div>
+            </div>
+            <div class="tiles beige" data-row="2" data-column="7">
+                <div draggable="true"class="draggable figure crni pijun"><img src="slike/black_pawn.png" alt=""></div>
+            </div>
+            <div class="tiles brown" data-row="2" data-column="8">
+                <div draggable="true"class="draggable figure crni pijun"><img src="slike/black_pawn.png" alt=""></div>
+            </div>
+        </div>
+        <div class="rows">
+            <div class="tiles brown" data-row="3" data-column="1"></div>
+            <div class="tiles beige" data-row="3" data-column="2"></div>
+            <div class="tiles brown" data-row="3" data-column="3"></div>
+            <div class="tiles beige" data-row="3" data-column="4"></div>
+            <div class="tiles brown" data-row="3" data-column="5"></div>
+            <div class="tiles beige" data-row="3" data-column="6"></div>
+            <div class="tiles brown" data-row="3" data-column="7"></div>
+            <div class="tiles beige" data-row="3" data-column="8"></div>
+        </div>
+        <div class="rows">
+            <div class="tiles beige" data-row="4" data-column="1"></div>
+            <div class="tiles brown" data-row="4" data-column="2"></div>
+            <div class="tiles beige" data-row="4" data-column="3"></div>
+            <div class="tiles brown" data-row="4" data-column="4"></div>
+            <div class="tiles beige" data-row="4" data-column="5"></div>
+            <div class="tiles brown" data-row="4" data-column="6"></div>
+            <div class="tiles beige" data-row="4" data-column="7"></div>
+            <div class="tiles brown" data-row="4" data-column="8"></div>
+        </div>
+        <div class="rows">
+            <div class="tiles brown" data-row="5" data-column="1"></div>
+            <div class="tiles beige" data-row="5" data-column="2"></div>
+            <div class="tiles brown" data-row="5" data-column="3"></div>
+            <div class="tiles beige" data-row="5" data-column="4"></div>
+            <div class="tiles brown" data-row="5" data-column="5"></div>
+            <div class="tiles beige" data-row="5" data-column="6"></div>
+            <div class="tiles brown" data-row="5" data-column="7"></div>
+            <div class="tiles beige" data-row="5" data-column="8"></div>
+        </div>
+        <div class="rows">
+            <div class="tiles beige" data-row="6" data-column="1"></div>
+            <div class="tiles brown" data-row="6" data-column="2"></div>
+            <div class="tiles beige" data-row="6" data-column="3"></div>
+            <div class="tiles brown" data-row="6" data-column="4"></div>
+            <div class="tiles beige" data-row="6" data-column="5"></div>
+            <div class="tiles brown" data-row="6" data-column="6"></div>
+            <div class="tiles beige" data-row="6" data-column="7"></div>
+            <div class="tiles brown" data-row="6" data-column="8"></div>
+        </div>
+        <div class="rows">
+            <div class="tiles brown" data-row="7" data-column="1">
+                <div draggable="true"class="draggable figure beli pijun"><img src="slike/white_pawn.png" alt=""></div>
+            </div>
+            <div class="tiles beige" data-row="7" data-column="2">
+                <div draggable="true"class="draggable figure beli pijun"><img src="slike/white_pawn.png" alt=""></div>
+            </div>
+            <div class="tiles brown" data-row="7" data-column="3">
+                <div draggable="true"class="draggable figure beli pijun"><img src="slike/white_pawn.png" alt=""></div>
+            </div>
+            <div class="tiles beige" data-row="7" data-column="4">
+                <div draggable="true"class="draggable figure beli pijun"><img src="slike/white_pawn.png" alt=""></div>
+            </div>
+            <div class="tiles brown" data-row="7" data-column="5">
+                <div draggable="true"class="draggable figure beli pijun"><img src="slike/white_pawn.png" alt=""></div>
+            </div>
+            <div class="tiles beige" data-row="7" data-column="6">
+                <div draggable="true"class="draggable figure beli pijun"><img src="slike/white_pawn.png" alt=""></div>
+            </div>
+            <div class="tiles brown" data-row="7" data-column="7">
+                <div draggable="true"class="draggable figure beli pijun"><img src="slike/white_pawn.png" alt=""></div>
+            </div>
+            <div class="tiles beige" data-row="7" data-column="8">
+                <div draggable="true"class="draggable figure beli pijun"><img src="slike/white_pawn.png" alt=""></div>
+            </div>
+        </div>
+        <div class="rows">
+            <div class="tiles beige" data-row="8" data-column="1">
+                <div draggable="true"class="draggable figure beli top"><img src="slike/white_rook.png" alt=""></div>
+            </div>
+            <div class="tiles brown" data-row="8" data-column="2">
+                <div draggable="true"class="draggable figure beli konj"><img src="slike/white_horse.png" alt=""></div>
+            </div>
+            <div class="tiles beige" data-row="8" data-column="3">
+                <div draggable="true"class="draggable figure beli lovac"><img src="slike/white_bishop.png" alt=""></div>
+            </div>
+            <div class="tiles brown" data-row="8" data-column="4">
+                <div draggable="true"class="draggable figure beli kraljica"><img src="slike/white_queen.png" alt=""></div>
+            </div>
+            <div class="tiles beige" data-row="8" data-column="5">
+                <div draggable="true"class="draggable figure beli kralj"><img src="slike/white_king.png" alt=""></div>
+            </div>
+            <div class="tiles brown" data-row="8" data-column="6">
+                <div draggable="true"class="draggable figure beli lovac"><img src="slike/white_bishop.png" alt=""></div>
+            </div>
+            <div class="tiles beige" data-row="8" data-column="7">
+                <div draggable="true"class="draggable figure beli konj"><img src="slike/white_horse.png" alt=""></div>
+            </div>
+            <div class="tiles brown" data-row="8" data-column="8">
+                <div draggable="true"class="draggable figure beli top"><img src="slike/white_rook.png" alt=""></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        
+        const polja= 
+        [
+            ["","","","","","","",""],
+            ["","","","","","","",""],
+            ["","","","","","","",""],
+            ["","","","","","","",""],
+            ["","","","","","","",""],
+            ["","","","","","","",""],
+            ["","","","","","","",""],
+            ["","","","","","","",""]
+        ];
+        let i=0;
+        let j=0;
+        document.querySelectorAll(".tiles").forEach(e =>{
+            
+            polja[j][i]=e;
+            i++;
+            if(i==8){
+                i=0;
+                j++;    
+            }
+        });
+        // document.querySelectorAll(".draggable").forEach(e =>{
+        //     e.classList.remove("draggable");
+        // });
+        // position je ono sto si trazio ali ti ne treba
+        // kada pritisnes figuru em krenes dragging em krenes da zelenis polja na koje moze da igra, sto se tice toga sto ces pozeleniti polja iza figura neprijateljskih i prijateljskih smislicemo, ali u sustini dodaj zelenu klasu tajlovima gde moze da se draguje
+        // let brojpoteza=0;
+        // document.body.addEventListener("load", pocetak());
+        // function pocetak(brojpoteza){
+            
+        //     if(brojpoteza%2==0){
+        //         document.querySelectorAll(".crni").forEach(element => {
+        //             element.currentTarget.classList.remove("draggable");
+                    
+        //         });
+        //         document.querySelectorAll(".beli").forEach(element => {
+        //             element.currentTarget.classList.add("draggable");
+        //         });
+        //     }
+        //     if(brojpoteza%2==1){
+        //         document.querySelectorAll(".beli").forEach(element => {
+        //             element.currentTarget.classList.remove("draggable");
+        //         });
+        //         document.querySelectorAll(".crni").forEach(element => {
+        //             element.currentTarget.classList.add("draggable");
+        //         });
+        //     }
+        // }
+        let draggables = document.querySelectorAll(".draggable");
+        let tiles = document.querySelectorAll(".tiles");
+        let isBeli = null;
+        let pocetnaPozicija=null;
+        draggables.forEach(draggable => {
+            draggable.addEventListener('dragstart', () => {
+                trenutnaMeta= null;
+                deadFigura= null; 
+                pocetnaPozicija=draggable.parentElement;
+                draggable.classList.add('dragging')
+                if(draggable.classList.contains("beli")) isBeli=true;
+                if(draggable.classList.contains("crni")) isBeli=false;
+                
+                if(draggable.classList.contains("top")){
+                    //onda mu daj pravila za topa
+                    let x= draggable.parentElement.getAttribute("data-row");
+                    let y= draggable.parentElement.getAttribute("data-column");
+                    
+
+                    const redovi =[...document.querySelectorAll('[data-row="'+x+'"]')];
+                    const kolone =[...document.querySelectorAll('[data-column="'+y+'"]')];
+
+                    
+                    
+                    redovi.reverse().some(pokusaj1);
+                    kolone.reverse().some(pokusaj1);
+                    
+                    function pokusaj1(e){
+                        if(isBeli){
+                                if(!e.hasChildNodes()){
+                                    e.classList.add("zeleno");
+                                    return;
+                                }else{
+                                    try{
+                                        if(e.firstChild.nextSibling.classList.contains("crni")){
+                                            e.classList.add("zeleno");
+                                            return 1;
+                                        }
+                                        if(e.firstChild.nextSibling.classList.contains("beli")){
+                                            
+                                            return 0; //vidim dva resenja, prvi jeste dva for loopa i da tako prolazim kroz elemente koji su najblizi trenutnoj poziciji elementa
+                                            // mozda pozovem jedan some pa u tom kodu ubacim i drugi videcu
+                                            // drugo resenje uzimam Y i X clienta ili nesto tako videcu
+                                            // top pojede sam sebe
+                                        }
+                                    }catch(error){}  
+                                }
+                            }
+                            if(!isBeli){
+                                if(!e.hasChildNodes()){
+                                    e.classList.add("zeleno");
+                                    return;
+                                }else{
+                                    try{
+                                        if(e.firstChild.nextSibling.classList.contains("beli")){
+                                            e.classList.add("zeleno");
+                                            return 1;
+                                        }
+                                        if(e.firstChild.nextSibling.classList.contains("crni")){
+                                            e.classList.remove("zeleno");
+                                            return 0; //zasto return ne radi? zar to ne treba da izbaci iz some loopa
+                                        }
+                                    }catch(error){
+                                        
+                                    }
+                                    
+                                }
+                            }
+                    }
+                    
+                    
+                        
+                }
+            })
+
+            draggable.addEventListener('dragend', () => {
+                try {
+                    
+                    trenutnaMeta.removeChild(deadFigura);
+                    
+                } catch (error) {
+                    
+                }
+                // ostoja top
+                
+                if(trenutnaMeta!=null) pocetnaPozicija.innerHTML=null;
+                draggable.classList.remove('dragging');
+                document.querySelectorAll('.zeleno').forEach(e =>{
+                        e.classList.remove("zeleno");
+                        
+                    });
+                  
+                
+                // brojpoteza++;
+                // pocetak(brojpoteza);
+                // console.log(brojpoteza);
+            })
+        })
+        let trenutnaMeta= null;
+        let deadFigura= null; 
+        tiles.forEach(container => {
+            container.addEventListener('dragover', e => {
+                e.preventDefault()
+                if (e.currentTarget.classList.contains("zeleno")) {
+                    
+                    trenutnaMeta=e.currentTarget;
+                    try{
+                        if(e.currentTarget.firstChild.nextSibling)
+                        deadFigura = e.currentTarget.firstChild.nextSibling;
+                    }
+                    catch(error){}
+                    
+                    const draggable = document.querySelector('.dragging')
+                    container.appendChild(draggable)
+                }
+                
+                
+                
+            })
+        })
+    </script>
+</body>
+</html>

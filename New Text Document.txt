@@ -1,0 +1,8 @@
+mozda grid za sah
+tabla,celo polje su divovi
+figure su, imaju z index veci od table
+sve figure su draggable
+appenduje se element ako su figure null u odredjenom polju 
+
+svi divovi tojest polja su u osmodimenzionalnom nizu, zbog toga cemo moci da odredimo kako se koja figura pomera
+mozda stavim figure u niz objekata, ili objekat sa nizov objekata(ti objekti su figure npr pijun konj)
