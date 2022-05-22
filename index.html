@@ -1554,18 +1554,21 @@ for (let index = y-1; index >-1; index--) {
 
                     if(trenutnaMeta!=null && uspesnoSiAppendovo==true) pocetnaPozicija.innerHTML=null;
                     
+                    if(uspesnoSiAppendovo){
+                        if((y==1 && draggable.classList.contains("beli") && draggable.classList.contains("pijun")) || (y==6 && draggable.classList.contains("crni") && draggable.classList.contains("pijun"))){
+                            let novaFigura = window.prompt("Pijun je dosao do kraja, unesi novu figuru: kraljica, top, lovac, konj // nemoj da si napravio gresku")
+                            draggable.classList.add(novaFigura);
+                            draggable.classList.remove("pijun");
+                            console.log(draggable.classList.contains("beli")?"beli":"crni");
+                            draggable.firstChild.src=draggable.classList.contains("beli")?"slike/beli_"+novaFigura+".png":"slike/crni_"+novaFigura+".png";
+                        }
+                    }
                     
                 }
                 // if(pocetnaPozicija==trenutnaMeta) brojpoteza--;
                 
                 //ovo dole ne radi ako na prazno polje stavis pijuna
-                if((y==1 && draggable.classList.contains("beli") && draggable.classList.contains("pijun")) || (y==6 && draggable.classList.contains("crni") && draggable.classList.contains("pijun"))){
-                    let novaFigura = window.prompt("Pijun je dosao do kraja, unesi novu figuru: kraljica, top, lovac, konj // nemoj da si napravio gresku")
-                    draggable.classList.add(novaFigura);
-                    draggable.classList.remove("pijun");
-                    console.log(draggable.classList.contains("beli")?"beli":"crni");
-                    draggable.firstChild.src=draggable.classList.contains("beli")?"slike/beli_"+novaFigura+".png":"slike/crni_"+novaFigura+".png";
-                    }
+                
                 mozesDaObrises=false;
                 
                 
