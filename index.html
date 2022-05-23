@@ -192,7 +192,7 @@
         document.body.addEventListener("load", pocetak());
         function pocetak(){
             //onselectstart="return false;" ondragstart="return false;" ////unselectable="on"??
-            console.log(brojpoteza)
+            
             if(brojpoteza%2==0){
                 document.querySelectorAll(".crni").forEach(element => {
                     element.classList.add("unselectable");
@@ -496,7 +496,7 @@
                                 }
                             }
                         }else if(y==0){
-                            console.log('y=0');
+                            
                         }else{
                             
                             if(!polja[y-1][x].hasChildNodes()){
@@ -572,7 +572,7 @@
                                 }
                             }
                         }else if(y==7){
-                            console.log('y=7');
+                            
                             
                             //zapocni menjanje pijuna u drugu figuru, nemora uslov da bude y=0 smisli bolji
                             // bolja varijanta je kada je drag end ako je elemnt na y==0||y==7 i pita dal je piun onda ---
@@ -1443,7 +1443,7 @@ if(!isBeli){
 for (let index = x-1; index >-1; index--) {
     
     if(polja[y][index].hasChildNodes()) {
-        if(pbolja[y][index].firstChild.nextElementSiling){//ovaj veliki copypaste gde se proverava da li postoji sibling je hotfix ali ne znam zasto je potreban bas cudno
+        if(polja[y][index].firstChild.nextElementSiling){//ovaj veliki copypaste gde se proverava da li postoji sibling je hotfix ali ne znam zasto je potreban bas cudno
                 if(polja[y][index].firstChild.nextElementSibling.classList.contains("beli")){
                 polja[y][index].classList.add("zeleno");
                 
@@ -1552,19 +1552,24 @@ for (let index = y-1; index >-1; index--) {
                         
                     }
 
-                    if(trenutnaMeta!=null && uspesnoSiAppendovo==true) pocetnaPozicija.innerHTML=null;
+                    if(trenutnaMeta!=null && uspesnoSiAppendovo==true){
+                        pocetnaPozicija.innerHTML=null;
+                        console.log("l")
+                    } 
                     
-                    if(uspesnoSiAppendovo){
+                    
+                    
+                }
+
+                if(uspesnoSiAppendovo){
                         if((y==1 && draggable.classList.contains("beli") && draggable.classList.contains("pijun")) || (y==6 && draggable.classList.contains("crni") && draggable.classList.contains("pijun"))){
                             let novaFigura = window.prompt("Pijun je dosao do kraja, unesi novu figuru: kraljica, top, lovac, konj // nemoj da si napravio gresku")
                             draggable.classList.add(novaFigura);
                             draggable.classList.remove("pijun");
-                            console.log(draggable.classList.contains("beli")?"beli":"crni");
+                            
                             draggable.firstChild.src=draggable.classList.contains("beli")?"slike/beli_"+novaFigura+".png":"slike/crni_"+novaFigura+".png";
                         }
                     }
-                    
-                }
                 // if(pocetnaPozicija==trenutnaMeta) brojpoteza--;
                 
                 //ovo dole ne radi ako na prazno polje stavis pijuna
