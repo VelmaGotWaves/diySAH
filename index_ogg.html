@@ -6,12 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Open+Sans&display=swap');
-        body{
-            font-family: 'Open Sans', sans-serif;
+        .body{
             margin:0;
             padding:0;
-            background-color: rgb(228, 228, 228);
         }
         .main{
             display:flex;
@@ -19,8 +16,6 @@
             width:fit-content;
             height:fit-content;
             max-width: 547px;
-            margin:10px;
-           
         }
         .content{
             display:flex;
@@ -89,35 +84,16 @@
             
             height:fit-content;
         }
-        .vremeScore div:not(.vremenskiDugmiciDiv){
+        .vremeScore div{
             align-items: center; 
             /* horizontal alignment koji je uspeo */
-            /* justify-content: space-between; */
+            justify-content: space-around;
             display:flex;
             flex-direction: column;
             
             height:fit-content;
         }
-        .vremenskiDugmiciDiv{
-            align-items: center; 
-            
-            justify-content: space-around;
-            display:flex;
-            flex-direction: row;
-            
-        }
-        .vremenskiDugmiciDiv input{
-            background-color:white;
-            font-size: 30px;
-            
-            
-        }
-        #dugme1{
-            background-color: rgb(143, 255, 143);
-        }  
-        .startButton{
-            font-size: 30px;
-        }
+                
     </style>
 </head>
 <body>
@@ -126,20 +102,15 @@
             <div>
                 <p class="beliTimer"></p>
                 <p>Beli Broj Poteza:</p>
-                <p class="beliBrojPoteza">0</p>
+                <p class="beliBrojPoteza">1</p>
             </div>
             <div>
-                <div class="vremenskiDugmiciDiv">
-                    <input type="button" value="1" class="vremenskiDugmici" id="dugme1">
-                    <input type="button" value="3" class="vremenskiDugmici" >
-                    <input type="button" value="5" class="vremenskiDugmici">
-                </div>
-                <button class="startButton"onclick="startButton()">START</button>
+                <button onclick="startButton()">START</button>
             </div>
             <div>
                 <p class="crniTimer"></p>
                 <p>Crni Broj Poteza:</p>
-                <p class="crniBrojPoteza">0</p>
+                <p class="crniBrojPoteza"></p>
             </div>
         </div>
         
@@ -265,176 +236,24 @@
         let nizMrtvihBelih = [];
         let nizMrtvihCrnih = [];
 
-// ------------------------------
-var time_in_minutes = 1;
-var current_time = Date.parse(new Date());
-var deadline = new Date(current_time + time_in_minutes*60*1000);
+        document.body.addEventListener("load", pocetak());
 
-
-function time_remaining(endtime){
-	var t = Date.parse(endtime) - Date.parse(new Date());
-	var seconds = Math.floor( (t/1000) % 60 );
-	var minutes = Math.floor( (t/1000/60) % 60 );
-	return {'total':t, 'minutes':minutes, 'seconds':seconds};
-}
-
-var timeinterval;
-function run_clock(id,endtime){
-	var clock = document.querySelector(id);
-	function update_clock(){
-		var t = time_remaining(endtime);
-		clock.innerHTML = t.minutes+' : '+t.seconds;
-		if(t.total<=0){ 
-            clearInterval(timeinterval); 
-            goodGame("crni");
-        }
-	}
-	update_clock(); // run function once at first to avoid delay
-	timeinterval = setInterval(update_clock,1000);
-}
-run_clock('.beliTimer',deadline);
-
-
-var paused = false; // is the clock paused?
-var time_left; // time left on the clock when paused
-
-function pause_clock(){
-	if(!paused){
-		paused = true;
-		clearInterval(timeinterval); // stop the clock
-		time_left = time_remaining(deadline).total; // preserve remaining time
-	}
-}
-
-function resume_clock(){
-	if(paused){
-		paused = false;
-
-		// update the deadline to preserve the amount of time remaining
-		deadline = new Date(Date.parse(new Date()) + time_left);
-
-		// start the clock
-		run_clock('.beliTimer',deadline);
-	}
-}
-pause_clock();
-
-// ------------------------------
-// ------------------------------
-var time_in_minutes1 = 1;
-var current_time1 = Date.parse(new Date());
-var deadline1 = new Date(current_time1 + time_in_minutes1*60*1000);
-
-
-function time_remaining1(endtime){
-	var t = Date.parse(endtime) - Date.parse(new Date());
-	var seconds = Math.floor( (t/1000) % 60 );
-	var minutes = Math.floor( (t/1000/60) % 60 );
-	return {'total':t, 'minutes':minutes, 'seconds':seconds};
-}
-
-var timeinterval1;
-function run_clock1(id,endtime){
-	var clock = document.querySelector(id);
-	function update_clock1(){
-		var t = time_remaining1(endtime);
-		clock.innerHTML = t.minutes+' : '+t.seconds;
-		if(t.total<=0){ 
-            clearInterval(timeinterval1); 
-            goodGame("beli");
-        }
-	}
-	update_clock1(); // run function once at first to avoid delay
-	timeinterval1 = setInterval(update_clock1,1000);
-}
-run_clock1('.crniTimer',deadline1);
-
-
-var paused1 = false; // is the clock paused?
-var time_left1; // time left on the clock when paused
-
-function pause_clock1(){
-	if(!paused1){
-		paused1 = true;
-		clearInterval(timeinterval1); // stop the clock
-		time_left1 = time_remaining(deadline1).total; // preserve remaining time
-	}
-}
-
-function resume_clock1(){
-	if(paused1){
-		paused1 = false;
-
-		// update the deadline to preserve the amount of time remaining
-		deadline1 = new Date(Date.parse(new Date()) + time_left1);
-
-		// start the clock
-		run_clock1('.crniTimer',deadline1);
-	}
-}
-pause_clock1();
-
-// ------------------------------
-        document.querySelectorAll(".crni, .beli").forEach(element => {
-                element.classList.add("unselectable");
-        });
-        document.querySelectorAll(".vremenskiDugmici").forEach(element => {
-            
-                element.addEventListener("click", e=>{
-                    document.querySelectorAll(".vremenskiDugmici").forEach(element=>{
-                        element.style.backgroundColor="white";
-                    })
-                
-                element.style.backgroundColor="rgb(143, 255, 143)";
-
-                    if(element.style.backgroundColor=="rgb(143, 255, 143)"){
-                        time_in_minutes = parseInt(element.value);
-                        
-                        current_time = Date.parse(new Date());
-                        deadline = new Date(current_time + time_in_minutes*60*1000);
-                        deadline1 = new Date(current_time + time_in_minutes*60*1000);
-                        paused = false;
-                        paused1 = false;
-                        clearInterval(timeinterval1)
-                        clearInterval(timeinterval)
-                        run_clock1('.crniTimer',deadline1);
-                        run_clock('.beliTimer',deadline);
-                        pause_clock1();
-                        pause_clock();
-                    }
-                })
-                
-                
-        });
-        
         function startButton(){
-            
-            document.querySelectorAll(".crni, .beli").forEach(element => {
-                element.classList.remove("unselectable");
-            });
-            //ovde ubaci oba timera start
-            document.querySelectorAll(".vremenskiDugmici").forEach(element => {
-                element.classList.add("unselectable");
-            });
+            location.reload();
             pocetak();
         }
 
         function pocetak(){
             //onselectstart="return false;" ondragstart="return false;" ////unselectable="on"??
-            document.querySelector(".beliBrojPoteza").innerText = Math.ceil(brojpoteza/2);
-            document.querySelector(".crniBrojPoteza").innerText = Math.floor(brojpoteza/2);
-
+            
             if(brojpoteza%2==0){
                 document.querySelectorAll(".crni").forEach(element => {
                     element.classList.add("unselectable");
                 });
                 document.querySelectorAll(".beli").forEach(element => {
                     element.classList.remove("unselectable");
-                });
-               
-                resume_clock();
-                pause_clock1();
 
+                });
             }
             if(brojpoteza%2==1){
                 document.querySelectorAll(".crni").forEach(element => {
@@ -443,11 +262,7 @@ pause_clock1();
                 document.querySelectorAll(".beli").forEach(element => {
                     element.classList.add("unselectable");
                 });
-                
-                pause_clock();
-                resume_clock1();
             }
-
             
         }
         
@@ -464,10 +279,24 @@ pause_clock1();
                 x= draggable.parentElement.getAttribute("data-column")-1;
                 //sad prodji kroz ceo kod govnaru jedan i obrisi sve gde pise sibling element ili sibling retarde glupi
                 if(draggable.classList.contains("top")){// na topu si naucio da oces ipak da koristis ovaj 8d niz bolji je
+
                     if(isBeli){
+                            
                             for (let index = x+1; index < 8; index++) {
+                            
+
                                 if(polja[y][index].hasChildNodes()) {
-                                    if(polja[y][index].firstChild){
+                                    if(polja[y][index].firstChild.nextElementSibling){//ovaj veliki copypaste gde se proverava da li postoji sibling je hotfix ali ne znam zasto je potreban bas cudno
+                                        if(polja[y][index].firstChild.nextElementSibling.classList.contains("crni")){// iskoristi ovaj hotfix svuda
+                                        polja[y][index].classList.add("zeleno");
+                                        
+                                        break;
+                                        }    
+                                        if(polja[y][index].firstChild.nextElementSibling.classList.contains("beli")){
+                                            
+                                            break;
+                                        }   
+                                    }else if(polja[y][index].firstChild){
                                         if(polja[y][index].firstChild.classList.contains("crni")){
                                         polja[y][index].classList.add("zeleno");
                                         
@@ -484,7 +313,17 @@ pause_clock1();
                             }
                             for (let index = x-1; index >-1; index--) {
                                 if(polja[y][index].hasChildNodes()) {
-                                    if(polja[y][index].firstChild){
+                                    if(polja[y][index].firstChild.nextElementSibling){
+                                        if(polja[y][index].firstChild.nextElementSibling.classList.contains("crni")){
+                                        polja[y][index].classList.add("zeleno");
+                                        
+                                        break;
+                                        }    
+                                        if(polja[y][index].firstChild.nextElementSibling.classList.contains("beli")){
+                                            
+                                            break;
+                                        }   
+                                    }else if(polja[y][index].firstChild){
                                         if(polja[y][index].firstChild.classList.contains("crni")){
                                         polja[y][index].classList.add("zeleno");
                                         
@@ -501,7 +340,17 @@ pause_clock1();
                             }
                             for (let index = y+1; index < 8; index++) {
                                 if(polja[index][x].hasChildNodes()) {
-                                    if(polja[index][x].firstChild){
+                                    if(polja[index][x].firstChild.nextElementSibling){
+                                        if(polja[index][x].firstChild.nextElementSibling.classList.contains("crni")){
+                                        polja[index][x].classList.add("zeleno");
+                                        
+                                        break;
+                                        }    
+                                        if(polja[index][x].firstChild.nextElementSibling.classList.contains("beli")){
+                                            
+                                            break;
+                                        }   
+                                    }else if(polja[index][x].firstChild){
                                         if(polja[index][x].firstChild.classList.contains("crni")){
                                         polja[index][x].classList.add("zeleno");
                                         
@@ -518,7 +367,17 @@ pause_clock1();
                             }
                             for (let index = y-1; index >-1; index--) {
                                 if(polja[index][x].hasChildNodes()) {
-                                    if(polja[index][x].firstChild){
+                                    if(polja[index][x].firstChild.nextElementSibling){
+                                        if(polja[index][x].firstChild.nextElementSibling.classList.contains("crni")){
+                                        polja[index][x].classList.add("zeleno");
+                                        
+                                        break;
+                                        }    
+                                        if(polja[index][x].firstChild.nextElementSibling.classList.contains("beli")){
+                                            
+                                            break;
+                                        }   
+                                    }else if(polja[index][x].firstChild){
                                         if(polja[index][x].firstChild.classList.contains("crni")){
                                         polja[index][x].classList.add("zeleno");
                                         
@@ -541,7 +400,17 @@ pause_clock1();
                             
 
                             if(polja[y][index].hasChildNodes()) {
-                                if(polja[y][index].firstChild){
+                                if(polja[y][index].firstChild.nextElementSibling){//ovaj veliki copypaste gde se proverava da li postoji sibling je hotfix ali ne znam zasto je potreban bas cudno
+                                        if(polja[y][index].firstChild.nextElementSibling.classList.contains("beli")){
+                                        polja[y][index].classList.add("zeleno");
+                                        
+                                        break;
+                                        }    
+                                        if(polja[y][index].firstChild.nextElementSibling.classList.contains("crni")){
+                                            
+                                            break;
+                                        }   
+                                    }else if(polja[y][index].firstChild){
                                         if(polja[y][index].firstChild.classList.contains("beli")){
                                         polja[y][index].classList.add("zeleno");
                                         
@@ -560,7 +429,17 @@ pause_clock1();
                         for (let index = x-1; index >-1; index--) {
                             
                             if(polja[y][index].hasChildNodes()) {
-                                if(polja[y][index].firstChild){
+                                if(polja[y][index].firstChild.nextElementSibling){//ovaj veliki copypaste gde se proverava da li postoji sibling je hotfix ali ne znam zasto je potreban bas cudno
+                                        if(polja[y][index].firstChild.nextElementSibling.classList.contains("beli")){
+                                        polja[y][index].classList.add("zeleno");
+                                        
+                                        break;
+                                        }    
+                                        if(polja[y][index].firstChild.nextElementSibling.classList.contains("crni")){
+                                            
+                                            break;
+                                        }   
+                                    }else if(polja[y][index].firstChild){
                                         if(polja[y][index].firstChild.classList.contains("beli")){
                                         polja[y][index].classList.add("zeleno");
                                         
@@ -577,7 +456,17 @@ pause_clock1();
                         }
                         for (let index = y+1; index < 8; index++) {
                             if(polja[index][x].hasChildNodes()) {
-                                if(polja[index][x].firstChild){
+                                if(polja[index][x].firstChild.nextElementSibling){//ovaj veliki copypaste gde se proverava da li postoji sibling je hotfix ali ne znam zasto je potreban bas cudno
+                                        if(polja[index][x].firstChild.nextElementSibling.classList.contains("beli")){
+                                        polja[index][x].classList.add("zeleno");
+                                        
+                                        break;
+                                        }    
+                                        if(polja[index][x].firstChild.nextElementSibling.classList.contains("crni")){
+                                            
+                                            break;
+                                        }   
+                                    }else if(polja[index][x].firstChild){
                                         if(polja[index][x].firstChild.classList.contains("beli")){
                                         polja[index][x].classList.add("zeleno");
                                         
@@ -594,7 +483,17 @@ pause_clock1();
                         }
                         for (let index = y-1; index >-1; index--) {
                             if(polja[index][x].hasChildNodes()) {
-                                if(polja[index][x].firstChild){
+                                if(polja[index][x].firstChild.nextElementSibling){//ovaj veliki copypaste gde se proverava da li postoji sibling je hotfix ali ne znam zasto je potreban bas cudno
+                                        if(polja[index][x].firstChild.nextElementSibling.classList.contains("beli")){
+                                        polja[index][x].classList.add("zeleno");
+                                        
+                                        break;
+                                        }    
+                                        if(polja[index][x].firstChild.nextElementSibling.classList.contains("crni")){
+                                            
+                                            break;
+                                        }   
+                                    }else if(polja[index][x].firstChild){
                                         if(polja[index][x].firstChild.classList.contains("beli")){
                                         polja[index][x].classList.add("zeleno");
                                         
@@ -623,7 +522,12 @@ pause_clock1();
                             }
                             if(x!=0){
                                 if(polja[y-1][x-1].hasChildNodes()) {
-                                    if(polja[y-1][x-1].firstChild){
+                                    if(polja[y-1][x-1].firstChild.nextElementSibling){
+                                        if(polja[y-1][x-1].firstChild.nextElementSibling.classList.contains("crni")){                                    
+                                            polja[y-1][x-1].classList.add("zeleno");
+                                        }
+                                    }
+                                    else if(polja[y-1][x-1].firstChild){
                                         if(polja[y-1][x-1].firstChild.classList.contains("crni")){                                    
                                             polja[y-1][x-1].classList.add("zeleno");
                                         }
@@ -632,7 +536,12 @@ pause_clock1();
                             }
                             if(x!=7){
                                 if(polja[y-1][x+1].hasChildNodes()) {
-                                    if(polja[y-1][x+1].firstChild){
+                                    if(polja[y-1][x+1].firstChild.nextElementSibling){
+                                        if(polja[y-1][x+1].firstChild.nextElementSibling.classList.contains("crni")){                                    
+                                            polja[y-1][x+1].classList.add("zeleno");
+                                        }
+                                    }
+                                    else if(polja[y-1][x+1].firstChild){
                                         if(polja[y-1][x+1].firstChild.classList.contains("crni")){                                    
                                             polja[y-1][x+1].classList.add("zeleno");
                                         }
@@ -648,7 +557,12 @@ pause_clock1();
                             }
                             if(x!=0){
                                 if(polja[y-1][x-1].hasChildNodes()) {
-                                    if(polja[y-1][x-1].firstChild){
+                                    if(polja[y-1][x-1].firstChild.nextElementSibling){
+                                        if(polja[y-1][x-1].firstChild.nextElementSibling.classList.contains("crni")){                                    
+                                            polja[y-1][x-1].classList.add("zeleno");
+                                        }
+                                    }
+                                    else if(polja[y-1][x-1].firstChild){
                                         if(polja[y-1][x-1].firstChild.classList.contains("crni")){                                    
                                             polja[y-1][x-1].classList.add("zeleno");
                                         }
@@ -657,7 +571,12 @@ pause_clock1();
                             }
                             if(x!=7){
                                 if(polja[y-1][x+1].hasChildNodes()) {
-                                    if(polja[y-1][x+1].firstChild){
+                                    if(polja[y-1][x+1].firstChild.nextElementSibling){
+                                        if(polja[y-1][x+1].firstChild.nextElementSibling.classList.contains("crni")){                                    
+                                            polja[y-1][x+1].classList.add("zeleno");
+                                        }
+                                    }
+                                    else if(polja[y-1][x+1].firstChild){
                                         if(polja[y-1][x+1].firstChild.classList.contains("crni")){                                    
                                             polja[y-1][x+1].classList.add("zeleno");
                                         }
@@ -679,7 +598,12 @@ pause_clock1();
 
                             if(x!=0){
                                 if(polja[y+1][x-1].hasChildNodes()) {
-                                    if(polja[y+1][x-1].firstChild){
+                                    if(polja[y+1][x-1].firstChild.nextElementSibling){
+                                        if(polja[y+1][x-1].firstChild.nextElementSibling.classList.contains("beli")){                                    
+                                            polja[y+1][x-1].classList.add("zeleno");
+                                        }
+                                    }
+                                    else if(polja[y+1][x-1].firstChild){
                                         if(polja[y+1][x-1].firstChild.classList.contains("beli")){                                    
                                             polja[y+1][x-1].classList.add("zeleno");
                                         }
@@ -688,7 +612,12 @@ pause_clock1();
                             }
                             if(x!=7){
                                 if(polja[y+1][x+1].hasChildNodes()) {
-                                    if(polja[y+1][x+1].firstChild){
+                                    if(polja[y+1][x+1].firstChild.nextElementSibling){
+                                        if(polja[y+1][x+1].firstChild.nextElementSibling.classList.contains("beli")){                                    
+                                            polja[y+1][x+1].classList.add("zeleno");
+                                        }
+                                    }
+                                    else if(polja[y+1][x+1].firstChild){
                                         if(polja[y+1][x+1].firstChild.classList.contains("beli")){                                    
                                             polja[y+1][x+1].classList.add("zeleno");
                                         }
@@ -707,7 +636,12 @@ pause_clock1();
                             }
                             if(x!=0){
                                 if(polja[y+1][x-1].hasChildNodes()) {
-                                    if(polja[y+1][x-1].firstChild){
+                                    if(polja[y+1][x-1].firstChild.nextElementSibling){
+                                        if(polja[y+1][x-1].firstChild.nextElementSibling.classList.contains("beli")){                                    
+                                            polja[y+1][x-1].classList.add("zeleno");
+                                        }
+                                    }
+                                    else if(polja[y+1][x-1].firstChild){
                                         if(polja[y+1][x-1].firstChild.classList.contains("beli")){                                    
                                             polja[y+1][x-1].classList.add("zeleno");
                                         }
@@ -716,7 +650,12 @@ pause_clock1();
                             }
                             if(x!=7){
                                 if(polja[y+1][x+1].hasChildNodes()) {
-                                    if(polja[y+1][x+1].firstChild){
+                                    if(polja[y+1][x+1].firstChild.nextElementSibling){
+                                        if(polja[y+1][x+1].firstChild.nextElementSibling.classList.contains("beli")){                                    
+                                            polja[y+1][x+1].classList.add("zeleno");
+                                        }
+                                    }
+                                    else if(polja[y+1][x+1].firstChild){
                                         if(polja[y+1][x+1].firstChild.classList.contains("beli")){                                    
                                             polja[y+1][x+1].classList.add("zeleno");
                                         }
@@ -748,7 +687,12 @@ pause_clock1();
                         sigurnaPolja.forEach(polje => {
                             if(polje.hasChildNodes()) 
                                 {
-                                    if(polje.firstChild){
+                                    if(polje.firstChild.nextElementSibling){
+                                        if(polje.firstChild.nextElementSibling.classList.contains("crni")){                                    
+                                            polje.classList.add("zeleno");
+                                        }
+                                    }
+                                    else if(polje.firstChild){
                                         if(polje.firstChild.classList.contains("crni")){                                    
                                             polje.classList.add("zeleno");
                                         }
@@ -766,7 +710,12 @@ pause_clock1();
                         sigurnaPolja.forEach(polje => {
                             if(polje.hasChildNodes()) 
                                 {
-                                    if(polje.firstChild){
+                                    if(polje.firstChild.nextElementSibling){
+                                        if(polje.firstChild.nextElementSibling.classList.contains("beli")){                                    
+                                            polje.classList.add("zeleno");
+                                        }
+                                    }
+                                    else if(polje.firstChild){
                                         if(polje.firstChild.classList.contains("beli")){                                    
                                             polje.classList.add("zeleno");
                                         }
@@ -782,37 +731,48 @@ pause_clock1();
                 }
                 if(draggable.classList.contains("kralj")){
                     let nizMogucihPolja = [ [y+1,x+1],[y-1,x-1],[y+1,x-1], [y-1,x+1],[y,x-1],[y,x+1],[y+1,x],[y-1,x]];
-                    let nizSigurnihPolja = nizMogucihPolja.filter(item=>{
-                        if(item[0]>-1 && item[0]<8 && item[1]>-1 && item[1]<8){
-                            return item;
-                        }
-                    })
-                    let sigurnaPolja=[];
-                    nizSigurnihPolja.forEach(item=>{
-                        sigurnaPolja.push( polja[item[0]][item[1]]);
-                    });
-                    if(isBeli){
-                    sigurnaPolja.forEach(polje => {
-                        if(polje.hasChildNodes()) 
-                        {
-                            if(polje.firstChild){
-                                if(polje.firstChild.classList.contains("crni")){                                    
+                        let nizSigurnihPolja = nizMogucihPolja.filter(item=>{
+                            if(item[0]>-1 && item[0]<8 && item[1]>-1 && item[1]<8){
+                                return item;
+                            }
+                        })
+                        let sigurnaPolja=[]
+                        nizSigurnihPolja.forEach(item=>{
+                            sigurnaPolja.push( polja[item[0]][item[1]]);
+                        })
+                        if(isBeli){
+                        sigurnaPolja.forEach(polje => {
+                            if(polje.hasChildNodes()) 
+                                {
+                                    if(polje.firstChild.nextElementSibling){
+                                        if(polje.firstChild.nextElementSibling.classList.contains("crni")){                                    
+                                            polje.classList.add("zeleno");
+                                        }
+                                    }
+                                    else if(polje.firstChild){
+                                        if(polje.firstChild.classList.contains("crni")){                                    
+                                            polje.classList.add("zeleno");
+                                        }
+                                    }
+                                }
+                                else if(!polje.hasChildNodes())
+                                {
                                     polje.classList.add("zeleno");
                                 }
-                            }
-                        }
-                        else if(!polje.hasChildNodes())
-                        {
-                            polje.classList.add("zeleno");
-                        }                            
-                    });
+                            
+                        });
 
                     }
                     if(!isBeli){
                         sigurnaPolja.forEach(polje => {
                             if(polje.hasChildNodes()) 
                                 {
-                                    if(polje.firstChild){
+                                    if(polje.firstChild.nextElementSibling){
+                                        if(polje.firstChild.nextElementSibling.classList.contains("beli")){                                    
+                                            polje.classList.add("zeleno");
+                                        }
+                                    }
+                                    else if(polje.firstChild){
                                         if(polje.firstChild.classList.contains("beli")){                                    
                                             polje.classList.add("zeleno");
                                         }
@@ -835,7 +795,17 @@ pause_clock1();
                                     
     
                                     if(polja[index1][index].hasChildNodes()) {
-                                        if(polja[index1][index].firstChild){
+                                        if(polja[index1][index].firstChild.nextElementSibling){//ovaj veliki copypaste gde se proverava da li postoji sibling je hotfix ali ne znam zasto je potreban bas cudno
+                                            if(polja[index1][index].firstChild.nextElementSibling.classList.contains("crni")){// iskoristi ovaj hotfix svuda
+                                            polja[index1][index].classList.add("zeleno");
+                                            
+                                            break;
+                                            }    
+                                            if(polja[index1][index].firstChild.nextElementSibling.classList.contains("beli")){
+                                                
+                                                break;
+                                            }   
+                                        }else if(polja[index1][index].firstChild){
                                             if(polja[index1][index].firstChild.classList.contains("crni")){
                                             polja[index1][index].classList.add("zeleno");
                                             
@@ -859,7 +829,17 @@ pause_clock1();
                                     
     
                                     if(polja[index1][index].hasChildNodes()) {
-                                        if(polja[index1][index].firstChild){
+                                        if(polja[index1][index].firstChild.nextElementSibling){//ovaj veliki copypaste gde se proverava da li postoji sibling je hotfix ali ne znam zasto je potreban bas cudno
+                                            if(polja[index1][index].firstChild.nextElementSibling.classList.contains("crni")){// iskoristi ovaj hotfix svuda
+                                            polja[index1][index].classList.add("zeleno");
+                                            
+                                            break;
+                                            }    
+                                            if(polja[index1][index].firstChild.nextElementSibling.classList.contains("beli")){
+                                                
+                                                break;
+                                            }   
+                                        }else if(polja[index1][index].firstChild){
                                             
                                             if(polja[index1][index].firstChild.classList.contains("crni")){
                                             polja[index1][index].classList.add("zeleno");
@@ -884,7 +864,17 @@ pause_clock1();
                                     
     
                                     if(polja[index1][index].hasChildNodes()) {
-                                        if(polja[index1][index].firstChild){
+                                        if(polja[index1][index].firstChild.nextElementSibling){//ovaj veliki copypaste gde se proverava da li postoji sibling je hotfix ali ne znam zasto je potreban bas cudno
+                                            if(polja[index1][index].firstChild.nextElementSibling.classList.contains("crni")){// iskoristi ovaj hotfix svuda
+                                            polja[index1][index].classList.add("zeleno");
+                                            
+                                            break;
+                                            }    
+                                            if(polja[index1][index].firstChild.nextElementSibling.classList.contains("beli")){
+                                                
+                                                break;
+                                            }   
+                                        }else if(polja[index1][index].firstChild){
                                             if(polja[index1][index].firstChild.classList.contains("crni")){
                                             polja[index1][index].classList.add("zeleno");
                                             
@@ -909,7 +899,17 @@ pause_clock1();
                                     
     
                                     if(polja[index1][index].hasChildNodes()) {
-                                        if(polja[index1][index].firstChild){
+                                        if(polja[index1][index].firstChild.nextElementSibling){//ovaj veliki copypaste gde se proverava da li postoji sibling je hotfix ali ne znam zasto je potreban bas cudno
+                                            if(polja[index1][index].firstChild.nextElementSibling.classList.contains("crni")){// iskoristi ovaj hotfix svuda
+                                            polja[index1][index].classList.add("zeleno");
+                                            
+                                            break;
+                                            }    
+                                            if(polja[index1][index].firstChild.nextElementSibling.classList.contains("beli")){
+                                                
+                                                break;
+                                            }   
+                                        }else if(polja[index1][index].firstChild){
                                             if(polja[index1][index].firstChild.classList.contains("crni")){
                                             polja[index1][index].classList.add("zeleno");
                                             
@@ -935,7 +935,17 @@ pause_clock1();
                                     
     
                                 if(polja[index1][index].hasChildNodes()) {
-                                        if(polja[index1][index].firstChild){
+                                        if(polja[index1][index].firstChild.nextElementSibling){//ovaj veliki copypaste gde se proverava da li postoji sibling je hotfix ali ne znam zasto je potreban bas cudno
+                                            if(polja[index1][index].firstChild.nextElementSibling.classList.contains("beli")){// iskoristi ovaj hotfix svuda
+                                            polja[index1][index].classList.add("zeleno");
+                                            
+                                            break;
+                                            }    
+                                            if(polja[index1][index].firstChild.nextElementSibling.classList.contains("crni")){
+                                                
+                                                break;
+                                            }   
+                                        }else if(polja[index1][index].firstChild){
                                             if(polja[index1][index].firstChild.classList.contains("beli")){
                                             polja[index1][index].classList.add("zeleno");
                                             
@@ -959,7 +969,17 @@ pause_clock1();
                                     
     
                                     if(polja[index1][index].hasChildNodes()) {
-                                        if(polja[index1][index].firstChild){
+                                        if(polja[index1][index].firstChild.nextElementSibling){//ovaj veliki copypaste gde se proverava da li postoji sibling je hotfix ali ne znam zasto je potreban bas cudno
+                                            if(polja[index1][index].firstChild.nextElementSibling.classList.contains("beli")){// iskoristi ovaj hotfix svuda
+                                            polja[index1][index].classList.add("zeleno");
+                                            
+                                            break;
+                                            }    
+                                            if(polja[index1][index].firstChild.nextElementSibling.classList.contains("crni")){
+                                                
+                                                break;
+                                            }   
+                                        }else if(polja[index1][index].firstChild){
                                             if(polja[index1][index].firstChild.classList.contains("beli")){
                                             polja[index1][index].classList.add("zeleno");
                                             
@@ -983,7 +1003,17 @@ pause_clock1();
                                     
     
                                     if(polja[index1][index].hasChildNodes()) {
-                                        if(polja[index1][index].firstChild){
+                                        if(polja[index1][index].firstChild.nextElementSibling){//ovaj veliki copypaste gde se proverava da li postoji sibling je hotfix ali ne znam zasto je potreban bas cudno
+                                            if(polja[index1][index].firstChild.nextElementSibling.classList.contains("beli")){// iskoristi ovaj hotfix svuda
+                                            polja[index1][index].classList.add("zeleno");
+                                            
+                                            break;
+                                            }    
+                                            if(polja[index1][index].firstChild.nextElementSibling.classList.contains("crni")){
+                                                
+                                                break;
+                                            }   
+                                        }else if(polja[index1][index].firstChild){
                                             if(polja[index1][index].firstChild.classList.contains("beli")){
                                             polja[index1][index].classList.add("zeleno");
                                             
@@ -1008,7 +1038,17 @@ pause_clock1();
                                     
     
                                     if(polja[index1][index].hasChildNodes()) {
-                                        if(polja[index1][index].firstChild){
+                                        if(polja[index1][index].firstChild.nextElementSibling){//ovaj veliki copypaste gde se proverava da li postoji sibling je hotfix ali ne znam zasto je potreban bas cudno
+                                            if(polja[index1][index].firstChild.nextElementSibling.classList.contains("beli")){// iskoristi ovaj hotfix svuda
+                                            polja[index1][index].classList.add("zeleno");
+                                            
+                                            break;
+                                            }    
+                                            if(polja[index1][index].firstChild.nextElementSibling.classList.contains("crni")){
+                                                
+                                                break;
+                                            }   
+                                        }else if(polja[index1][index].firstChild){
                                             if(polja[index1][index].firstChild.classList.contains("beli")){
                                             polja[index1][index].classList.add("zeleno");
                                             
@@ -1036,7 +1076,17 @@ while(index < 8 && index1<8){
     
 
     if(polja[index1][index].hasChildNodes()) {
-        if(polja[index1][index].firstChild){
+        if(polja[index1][index].firstChild.nextElementSibling){//ovaj veliki copypaste gde se proverava da li postoji sibling je hotfix ali ne znam zasto je potreban bas cudno
+            if(polja[index1][index].firstChild.nextElementSibling.classList.contains("crni")){// iskoristi ovaj hotfix svuda
+            polja[index1][index].classList.add("zeleno");
+            
+            break;
+            }    
+            if(polja[index1][index].firstChild.nextElementSibling.classList.contains("beli")){
+                
+                break;
+            }   
+        }else if(polja[index1][index].firstChild){
             if(polja[index1][index].firstChild.classList.contains("crni")){
             polja[index1][index].classList.add("zeleno");
             
@@ -1060,7 +1110,17 @@ while(index > -1 && index1> -1){
     
 
     if(polja[index1][index].hasChildNodes()) {
-        if(polja[index1][index].firstChild){
+        if(polja[index1][index].firstChild.nextElementSibling){//ovaj veliki copypaste gde se proverava da li postoji sibling je hotfix ali ne znam zasto je potreban bas cudno
+            if(polja[index1][index].firstChild.nextElementSibling.classList.contains("crni")){// iskoristi ovaj hotfix svuda
+            polja[index1][index].classList.add("zeleno");
+            
+            break;
+            }    
+            if(polja[index1][index].firstChild.nextElementSibling.classList.contains("beli")){
+                
+                break;
+            }   
+        }else if(polja[index1][index].firstChild){
             if(polja[index1][index].firstChild.classList.contains("crni")){
             polja[index1][index].classList.add("zeleno");
             
@@ -1084,7 +1144,17 @@ while(index < 8 && index1>-1){
     
 
     if(polja[index1][index].hasChildNodes()) {
-        if(polja[index1][index].firstChild){
+        if(polja[index1][index].firstChild.nextElementSibling){//ovaj veliki copypaste gde se proverava da li postoji sibling je hotfix ali ne znam zasto je potreban bas cudno
+            if(polja[index1][index].firstChild.nextElementSibling.classList.contains("crni")){// iskoristi ovaj hotfix svuda
+            polja[index1][index].classList.add("zeleno");
+            
+            break;
+            }    
+            if(polja[index1][index].firstChild.nextElementSibling.classList.contains("beli")){
+                
+                break;
+            }   
+        }else if(polja[index1][index].firstChild){
             if(polja[index1][index].firstChild.classList.contains("crni")){
             polja[index1][index].classList.add("zeleno");
             
@@ -1109,7 +1179,17 @@ while(index >-1 && index1< 8){
     
 
     if(polja[index1][index].hasChildNodes()) {
-        if(polja[index1][index].firstChild){
+        if(polja[index1][index].firstChild.nextElementSibling){//ovaj veliki copypaste gde se proverava da li postoji sibling je hotfix ali ne znam zasto je potreban bas cudno
+            if(polja[index1][index].firstChild.nextElementSibling.classList.contains("crni")){// iskoristi ovaj hotfix svuda
+            polja[index1][index].classList.add("zeleno");
+            
+            break;
+            }    
+            if(polja[index1][index].firstChild.nextElementSibling.classList.contains("beli")){
+                
+                break;
+            }   
+        }else if(polja[index1][index].firstChild){
             if(polja[index1][index].firstChild.classList.contains("crni")){
             polja[index1][index].classList.add("zeleno");
             
@@ -1135,7 +1215,17 @@ while(index < 8 && index1<8){
     
 
 if(polja[index1][index].hasChildNodes()) {
-        if(polja[index1][index].firstChild){
+        if(polja[index1][index].firstChild.nextElementSibling){//ovaj veliki copypaste gde se proverava da li postoji sibling je hotfix ali ne znam zasto je potreban bas cudno
+            if(polja[index1][index].firstChild.nextElementSibling.classList.contains("beli")){// iskoristi ovaj hotfix svuda
+            polja[index1][index].classList.add("zeleno");
+            
+            break;
+            }    
+            if(polja[index1][index].firstChild.nextElementSibling.classList.contains("crni")){
+                
+                break;
+            }   
+        }else if(polja[index1][index].firstChild){
             if(polja[index1][index].firstChild.classList.contains("beli")){
             polja[index1][index].classList.add("zeleno");
             
@@ -1159,7 +1249,17 @@ while(index > -1 && index1> -1){
     
 
     if(polja[index1][index].hasChildNodes()) {
-        if(polja[index1][index].firstChild){
+        if(polja[index1][index].firstChild.nextElementSibling){//ovaj veliki copypaste gde se proverava da li postoji sibling je hotfix ali ne znam zasto je potreban bas cudno
+            if(polja[index1][index].firstChild.nextElementSibling.classList.contains("beli")){// iskoristi ovaj hotfix svuda
+            polja[index1][index].classList.add("zeleno");
+            
+            break;
+            }    
+            if(polja[index1][index].firstChild.nextElementSibling.classList.contains("crni")){
+                
+                break;
+            }   
+        }else if(polja[index1][index].firstChild){
             if(polja[index1][index].firstChild.classList.contains("beli")){
             polja[index1][index].classList.add("zeleno");
             
@@ -1183,7 +1283,17 @@ while(index < 8 && index1>-1){
     
 
     if(polja[index1][index].hasChildNodes()) {
-        if(polja[index1][index].firstChild){
+        if(polja[index1][index].firstChild.nextElementSibling){//ovaj veliki copypaste gde se proverava da li postoji sibling je hotfix ali ne znam zasto je potreban bas cudno
+            if(polja[index1][index].firstChild.nextElementSibling.classList.contains("beli")){// iskoristi ovaj hotfix svuda
+            polja[index1][index].classList.add("zeleno");
+            
+            break;
+            }    
+            if(polja[index1][index].firstChild.nextElementSibling.classList.contains("crni")){
+                
+                break;
+            }   
+        }else if(polja[index1][index].firstChild){
             if(polja[index1][index].firstChild.classList.contains("beli")){
             polja[index1][index].classList.add("zeleno");
             
@@ -1208,7 +1318,17 @@ while(index >-1 && index1< 8){
     
 
     if(polja[index1][index].hasChildNodes()) {
-        if(polja[index1][index].firstChild){
+        if(polja[index1][index].firstChild.nextElementSibling){//ovaj veliki copypaste gde se proverava da li postoji sibling je hotfix ali ne znam zasto je potreban bas cudno
+            if(polja[index1][index].firstChild.nextElementSibling.classList.contains("beli")){// iskoristi ovaj hotfix svuda
+            polja[index1][index].classList.add("zeleno");
+            
+            break;
+            }    
+            if(polja[index1][index].firstChild.nextElementSibling.classList.contains("crni")){
+                
+                break;
+            }   
+        }else if(polja[index1][index].firstChild){
             if(polja[index1][index].firstChild.classList.contains("beli")){
             polja[index1][index].classList.add("zeleno");
             
@@ -1233,7 +1353,17 @@ if(isBeli){
     
 
         if(polja[y][index].hasChildNodes()) {
-            if(polja[y][index].firstChild){
+            if(polja[y][index].firstChild.nextElementSibling){//ovaj veliki copypaste gde se proverava da li postoji sibling je hotfix ali ne znam zasto je potreban bas cudno
+                if(polja[y][index].firstChild.nextElementSibling.classList.contains("crni")){// iskoristi ovaj hotfix svuda
+                polja[y][index].classList.add("zeleno");
+                
+                break;
+                }    
+                if(polja[y][index].firstChild.nextElementSibling.classList.contains("beli")){
+                    
+                    break;
+                }   
+            }else if(polja[y][index].firstChild){
                 if(polja[y][index].firstChild.classList.contains("crni")){
                 polja[y][index].classList.add("zeleno");
                 
@@ -1250,7 +1380,17 @@ if(isBeli){
     }
     for (let index = x-1; index >-1; index--) {
         if(polja[y][index].hasChildNodes()) {
-            if(polja[y][index].firstChild){
+            if(polja[y][index].firstChild.nextElementSibling){
+                if(polja[y][index].firstChild.nextElementSibling.classList.contains("crni")){
+                polja[y][index].classList.add("zeleno");
+                
+                break;
+                }    
+                if(polja[y][index].firstChild.nextElementSibling.classList.contains("beli")){
+                    
+                    break;
+                }   
+            }else if(polja[y][index].firstChild){
                 if(polja[y][index].firstChild.classList.contains("crni")){
                 polja[y][index].classList.add("zeleno");
                 
@@ -1267,7 +1407,17 @@ if(isBeli){
     }
     for (let index = y+1; index < 8; index++) {
         if(polja[index][x].hasChildNodes()) {
-            if(polja[index][x].firstChild){
+            if(polja[index][x].firstChild.nextElementSibling){
+                if(polja[index][x].firstChild.nextElementSibling.classList.contains("crni")){
+                polja[index][x].classList.add("zeleno");
+                
+                break;
+                }    
+                if(polja[index][x].firstChild.nextElementSibling.classList.contains("beli")){
+                    
+                    break;
+                }   
+            }else if(polja[index][x].firstChild){
                 if(polja[index][x].firstChild.classList.contains("crni")){
                 polja[index][x].classList.add("zeleno");
                 
@@ -1284,7 +1434,17 @@ if(isBeli){
     }
     for (let index = y-1; index >-1; index--) {
         if(polja[index][x].hasChildNodes()) {
-            if(polja[index][x].firstChild){
+            if(polja[index][x].firstChild.nextElementSibling){
+                if(polja[index][x].firstChild.nextElementSibling.classList.contains("crni")){
+                polja[index][x].classList.add("zeleno");
+                
+                break;
+                }    
+                if(polja[index][x].firstChild.nextElementSibling.classList.contains("beli")){
+                    
+                    break;
+                }   
+            }else if(polja[index][x].firstChild){
                 if(polja[index][x].firstChild.classList.contains("crni")){
                 polja[index][x].classList.add("zeleno");
                 
@@ -1307,7 +1467,17 @@ if(!isBeli){
     
 
     if(polja[y][index].hasChildNodes()) {
-        if(polja[y][index].firstChild){
+        if(polja[y][index].firstChild.nextElementSibling){//ovaj veliki copypaste gde se proverava da li postoji sibling je hotfix ali ne znam zasto je potreban bas cudno
+                if(polja[y][index].firstChild.nextElementSibling.classList.contains("beli")){
+                polja[y][index].classList.add("zeleno");
+                
+                break;
+                }    
+                if(polja[y][index].firstChild.nextElementSibling.classList.contains("crni")){
+                    
+                    break;
+                }   
+            }else if(polja[y][index].firstChild){
                 if(polja[y][index].firstChild.classList.contains("beli")){
                 polja[y][index].classList.add("zeleno");
                 
@@ -1326,7 +1496,17 @@ if(!isBeli){
 for (let index = x-1; index >-1; index--) {
     
     if(polja[y][index].hasChildNodes()) {
-        if(polja[y][index].firstChild){
+        if(polja[y][index].firstChild.nextElementSiling){//ovaj veliki copypaste gde se proverava da li postoji sibling je hotfix ali ne znam zasto je potreban bas cudno
+                if(polja[y][index].firstChild.nextElementSibling.classList.contains("beli")){
+                polja[y][index].classList.add("zeleno");
+                
+                break;
+                }    
+                if(polja[y][index].firstChild.nextElementSibling.classList.contains("crni")){
+                    
+                    break;
+                }   
+            }else if(polja[y][index].firstChild){
                 if(polja[y][index].firstChild.classList.contains("beli")){
                 polja[y][index].classList.add("zeleno");
                 
@@ -1343,7 +1523,17 @@ for (let index = x-1; index >-1; index--) {
 }
 for (let index = y+1; index < 8; index++) {
     if(polja[index][x].hasChildNodes()) {
-        if(polja[index][x].firstChild){
+        if(polja[index][x].firstChild.nextElementSibling){//ovaj veliki copypaste gde se proverava da li postoji sibling je hotfix ali ne znam zasto je potreban bas cudno
+                if(polja[index][x].firstChild.nextElementSibling.classList.contains("beli")){
+                polja[index][x].classList.add("zeleno");
+                
+                break;
+                }    
+                if(polja[index][x].firstChild.nextElementSibling.classList.contains("crni")){
+                    
+                    break;
+                }   
+            }else if(polja[index][x].firstChild){
                 if(polja[index][x].firstChild.classList.contains("beli")){
                 polja[index][x].classList.add("zeleno");
                 
@@ -1360,7 +1550,17 @@ for (let index = y+1; index < 8; index++) {
 }
 for (let index = y-1; index >-1; index--) {
     if(polja[index][x].hasChildNodes()) {
-        if(polja[index][x].firstChild){
+        if(polja[index][x].firstChild.nextElementSibling){//ovaj veliki copypaste gde se proverava da li postoji sibling je hotfix ali ne znam zasto je potreban bas cudno
+                if(polja[index][x].firstChild.nextElementSibling.classList.contains("beli")){
+                polja[index][x].classList.add("zeleno");
+                
+                break;
+                }    
+                if(polja[index][x].firstChild.nextElementSibling.classList.contains("crni")){
+                    
+                    break;
+                }   
+            }else if(polja[index][x].firstChild){
                 if(polja[index][x].firstChild.classList.contains("beli")){
                 polja[index][x].classList.add("zeleno");
                 
@@ -1409,7 +1609,9 @@ for (let index = y-1; index >-1; index--) {
                         pocetnaPozicija.innerHTML=null;
                         console.log("l")
                     } 
-                                        
+                    
+                    
+                    
                 }
 
                 if(uspesnoSiAppendovo){
